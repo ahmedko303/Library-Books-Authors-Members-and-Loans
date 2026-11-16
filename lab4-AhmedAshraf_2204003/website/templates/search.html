@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% from "macros.html" import show %}
+{% block title %}Search books{% endblock %}
+{% block content %}
+<section class="hero small-hero">
+  <span class="chip sun">F2.1</span>
+  <h1>Search books</h1>
+</section>
+
+<section class="panel">
+  <form method="get" class="filters">
+    <label>Title keyword
+      <input name="q" value="{{ q }}" placeholder="for example: pride">
+    </label>
+    <label>Minimum price
+      <input name="min_price" type="number" step="0.01" min="0" value="{{ min_price }}" placeholder="0">
+    </label>
+    <label>Maximum price
+      <input name="max_price" type="number" step="0.01" min="0" value="{{ max_price }}" placeholder="no limit">
+    </label>
+    <label>Category
+      <select name="category">
+        <option value="">All categories</option>
+        {% for c in categories %}
+          <option value="{{ c.category_id }}" {{ 'selected' if category == c.category_id|string }}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <div class="row filter-buttons">
+      <button class="btn">Search</button>
+      <a class="btn ghost" href="{{ url_for('search') }}">Clear</a>
+    </div>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Results, cheapest first</h2>
+  {{ show(rows) }}
+  <details>
+    <summary>Show the SQL</summary>
+    <pre class="sql">{{ sql }}</pre>
+    <p class="muted">Prepared statement: the values are sent separately as {{ params|join(', ') }}.</p>
+  </details>
+</section>
+{% endblock %}

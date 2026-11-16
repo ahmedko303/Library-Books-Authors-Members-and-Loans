@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "macros.html" import show %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<section class="hero small-hero">
+  <span class="chip sun">{{ tag }}</span>
+  <h1>{{ title }}</h1>
+</section>
+
+{% for s in sections %}
+<section class="panel">
+  <h2>{{ s.label }}</h2>
+  <p class="muted">{{ s.note }}</p>
+  {{ show(s.rows) }}
+  <details>
+    <summary>Show the SQL</summary>
+    <pre class="sql">{{ s.sql }}</pre>
+  </details>
+</section>
+{% endfor %}
+{% endblock %}

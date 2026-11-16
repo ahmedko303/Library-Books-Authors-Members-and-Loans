@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Ask the library anything.</h1>
+  <p class="lead">Six pages, six kinds of search query. Each page also shows the SQL it ran.</p>
+</section>
+
+<section class="cards">
+  {% for tag, name, endpoint, text in pages %}
+  <a class="card c{{ loop.index0 % 4 }}" href="{{ url_for(endpoint) }}">
+    <span class="chip">{{ tag }}</span>
+    <h2>{{ name }}</h2>
+    <p>{{ text }}</p>
+  </a>
+  {% endfor %}
+</section>
+{% endblock %}

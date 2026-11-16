@@ -1,0 +1,19 @@
+{% macro show(rows) %}
+  {% if rows %}
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>{% for key in rows[0] %}<th>{{ key.replace('_', ' ')|capitalize }}</th>{% endfor %}</tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>{% for value in row.values() %}<td>{{ value }}</td>{% endfor %}</tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted count">{{ rows|length }} row{{ '' if rows|length == 1 else 's' }}</p>
+  {% else %}
+    <p class="empty">No rows found.</p>
+  {% endif %}
+{% endmacro %}
